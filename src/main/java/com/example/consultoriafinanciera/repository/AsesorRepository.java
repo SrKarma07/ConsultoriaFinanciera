@@ -2,7 +2,23 @@ package com.example.consultoriafinanciera.repository;
 
 import com.example.consultoriafinanciera.entity.Asesor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
+@Repository
 public interface AsesorRepository extends JpaRepository<Asesor, String> {
-    // Puedes agregar métodos de consulta personalizados si los necesitas
+
+    // Buscar un asesor usando el asesorId como identificador de negocio
+    Optional<Asesor> findByAsesorId(String asesorId);
+
+    // Verificar si existe un asesor con determinado asesorId
+    boolean existsByAsesorId(String asesorId);
+
+    // Eliminar por asesorId (requiere @Modifying y @Transactional)
+    @Transactional
+    @Modifying
+    void deleteByAsesorId(String asesorId);
 }
